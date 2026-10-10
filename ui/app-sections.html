@@ -1,0 +1,55 @@
+    <section data-page="speed" hidden>
+      <div class="note">Your internet speed, as <a class="st-link" href="#" target="_blank" rel="noopener">Speedtest Tracker</a> measured it. Its own dashboard has the charts; this is the short version.</div>
+      <div class="tiles" id="sp-tiles"></div>
+      <div class="card"><div class="in">
+        <p><button class="btn primary" id="sp-run" data-app>Test now</button> <span id="sp-state" class="muted small"></span></p></div></div>
+      <div class="card"><h2>Averages</h2><table><thead><tr><th></th><th>Tests</th><th>Download</th><th>Upload</th><th>Ping</th></tr></thead><tbody id="sp-avg"></tbody></table></div>
+      <div class="card"><h2>Latest results</h2><table><thead><tr><th>When</th><th>Download</th><th>Upload</th><th>Ping</th><th>Server</th><th></th></tr></thead><tbody id="sp-recent"></tbody></table></div>
+      <div class="card"><h2>Every result, in File Station</h2><div class="in">
+        <p class="muted small">One spreadsheet per month in <b>speedtest → <span id="hs-dir">Speed history</span></b> (CSV: opens in Excel, Numbers or Synology Office), updated every hour — the evidence when you ask your provider about a slow line.</p>
+        <p><button class="btn" data-act="historynow">Update it now</button> <span class="muted small" id="hs-at"></span></p></div></div>
+    </section>
+
+    <section data-page="schedule" hidden>
+      <div class="note">When Speedtest Tracker tests, and against which server. Each test downloads and uploads for about ten seconds as fast as the line allows — a few hundred megabytes on a fast connection — so mind data caps.</div>
+      <div class="card"><div class="in">
+        <label class="f"><span>Test</span><select id="sc-every">
+          <option value="1h">Every hour</option><option value="3h">Every 3 hours</option><option value="6h">Every 6 hours</option>
+          <option value="12h">Twice a day</option><option value="24h">Once a day (at 3 in the morning)</option><option value="off">Only when I ask</option></select>
+          <span class="hint" id="sc-cron"></span></label>
+        <label class="f"><span>Server</span><select id="sc-server"><option value="">The nearest (Speedtest picks)</option></select>
+          <span class="hint">Always the same server makes results comparable. <a href="#" id="sc-find">Find servers near this Synology</a></span></label>
+        <label class="f"><span>Keep results</span><select id="sc-keep">
+          <option value="0">For good</option><option value="30">30 days</option><option value="90">90 days</option><option value="180">6 months</option><option value="365">A year</option><option value="730">2 years</option></select></label>
+        <button class="btn primary" id="sc-save" data-app>Save</button></div></div>
+      <div class="card"><h2>Public dashboard</h2><div class="in">
+        <p class="muted small">Let anyone who can open Speedtest Tracker see its dashboard without signing in — handy on a wall screen or for the family. Settings still need your account.</p>
+        <p><span id="pb-state"></span> <span id="pb-btn"></span></p></div></div>
+    </section>
+
+    <section data-page="alerts" hidden>
+      <div class="note">Say what your line should manage. A result that falls short is marked unhealthy in Speedtest Tracker — and, if you like, DSM tells its administrators (the bell in DSM, and on your phone with the DS finder app or DSM's email and push notifications).</div>
+      <div class="tiles" id="al-tiles"></div>
+      <div class="card"><h2>Thresholds</h2><div class="in limits">
+        <p><label><input type="checkbox" id="al-on"> Check results against these</label></p>
+        <label class="f"><span>Download at least (Mbps)</span><input type="number" id="al-down" min="0" step="1" placeholder="0 — not checked"></label>
+        <label class="f"><span>Upload at least (Mbps)</span><input type="number" id="al-up" min="0" step="1" placeholder="0 — not checked"></label>
+        <label class="f"><span>Ping at most (ms)</span><input type="number" id="al-ping" min="0" step="1" placeholder="0 — not checked"></label>
+        <p class="muted small">A good start: about two-thirds of the speed you pay for.</p>
+        <button class="btn primary" id="al-save" data-app>Save</button></div></div>
+      <div class="card"><h2>DSM notifications</h2><div class="in">
+        <p class="muted small">When a test fails (the internet was down, or Speedtest couldn't be reached), or comes in below the thresholds.</p>
+        <p><span id="al-dsm"></span> <span id="al-dsm-btn"></span></p>
+        <p class="muted small">For email, Telegram, ntfy, Discord and more, use Speedtest Tracker's own <a class="st-link" data-path="/admin/notification" href="#" target="_blank" rel="noopener">Settings → Notifications</a>.</p></div></div>
+    </section>
+
+    <section data-page="account" hidden>
+      <div class="note">Your Speedtest Tracker account, and tokens for other apps to read your results — Homepage's speed test widget, Home Assistant, a script.</div>
+      <div class="card"><h2>Your account</h2><div class="in"><table><tbody id="ac-me"></tbody></table>
+        <p><button class="btn" data-act="mypw" data-confirm="Make a new password for your Speedtest Tracker account? The old one stops working.">New password</button></p></div></div>
+      <div class="card"><h2>API tokens</h2><table><thead><tr><th>Name</th><th>May</th><th>Made</th><th>Last used</th><th class="n"></th></tr></thead><tbody id="ac-tokens"></tbody></table>
+        <div class="in">
+        <label class="f"><span>Name</span><input type="text" id="tk-name" maxlength="60" placeholder="Homepage"></label>
+        <label class="f"><span>May</span><select id="tk-kind"><option value="read">Read results</option><option value="run">Read results and start tests</option></select></label>
+        <button class="btn primary" id="tk-add" data-app>Make a token</button><p class="muted small">Shown once. Send it as <code>Authorization: Bearer …</code> to <span id="tk-api">/api/v1/results/latest</span>.</p></div></div>
+    </section>

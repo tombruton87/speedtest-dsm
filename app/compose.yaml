@@ -1,0 +1,36 @@
+# Speedtest Tracker, as the Synology package runs it: the compose project in
+# the speedtest shared folder. The setup container writes .env beside this.
+# Its database (SQLite), nginx settings and HTTPS keys live in the
+# speedtest_config volume; the monthly CSV history goes to the share.
+services:
+  app:
+    image: ${ST_IMAGE:-lscr.io/linuxserver/speedtest-tracker:latest}
+    container_name: speedtest-app
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-8780}:${INNER_PORT:-80}"
+    volumes:
+      - config:/config
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: ${TZ:-UTC}
+      DISPLAY_TIMEZONE: ${TZ:-UTC}
+      APP_KEY: ${APP_KEY}
+      APP_URL: ${APP_URL}
+      DB_CONNECTION: sqlite
+      FORCE_HTTPS: ${FORCE_HTTPS:-false}
+      # Set from the DSM window: when tests run (cron), which server, how long results are kept, and the public dashboard.
+      SPEEDTEST_SCHEDULE: ${SPEEDTEST_SCHEDULE:-}
+      SPEEDTEST_SERVERS: ${SPEEDTEST_SERVERS:-}
+      PRUNE_RESULTS_OLDER_THAN: ${KEEP_DAYS:-0}
+      PUBLIC_DASHBOARD: ${PUBLIC_DASHBOARD:-false}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:80/api/healthcheck >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  config:

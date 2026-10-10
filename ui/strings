@@ -1,0 +1,3 @@
+speedslow="A speed test came in below your thresholds: {0} Mbps down, {1} Mbps up, {2} ms ping. Open Speedtest Tracker from the main menu → Speed."
+speedfailed="A speed test failed: {0}. Is the internet down? Open Speedtest Tracker from the main menu → Speed."
+speedmany="{0} speed tests failed or came in below your thresholds since the last check. Open Speedtest Tracker from the main menu → Speed."

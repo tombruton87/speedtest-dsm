@@ -1,0 +1,28 @@
+, {
+    "step_title": "Speedtest Tracker",
+    "items": [{
+        "type": "textfield",
+        "desc": "Speedtest Tracker comes with a well-known default login (admin@example.com / password). The package makes it yours at the first start, with a strong password shown once in the Speedtest Tracker window in DSM.",
+        "subitems": [
+            { "key": "wizard_admin_email", "desc": "Your email (sign-in)", "defaultValue": "", "validator": { "allowBlank": false, "regex": { "expr": "/^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}\$/", "errorText": "Looks like you@example.com" } } },
+            { "key": "wizard_admin_name", "desc": "Your name", "defaultValue": "", "validator": { "allowBlank": false, "regex": { "expr": "/^[A-Za-z0-9 ._@-]{1,60}\$/", "errorText": "Letters, digits and spaces — up to 60" } } }
+        ]
+    }, {
+        "type": "singleselect",
+        "desc": "How often to test. Each test uses the line flat out for about twenty seconds — mind data caps. It can be changed later in the window.",
+        "subitems": [
+            { "key": "wizard_every_1h", "desc": "Every hour", "defaultValue": false },
+            { "key": "wizard_every_6h", "desc": "Every 6 hours", "defaultValue": true },
+            { "key": "wizard_every_24h", "desc": "Once a day", "defaultValue": false },
+            { "key": "wizard_every_off", "desc": "Only when I ask", "defaultValue": false }
+        ]
+    }, {
+        "type": "singleselect",
+        "desc": "HTTPS keeps your sign-in private. It can be switched later in the window.",
+        "subitems": [
+            { "key": "wizard_tls_off", "desc": "Plain HTTP (on your own network, or behind DSM's reverse proxy)", "defaultValue": true },
+            { "key": "wizard_tls_dsm", "desc": "HTTPS with DSM's certificate: the system default from Control Panel → Security → Certificate", "defaultValue": false },
+            { "key": "wizard_tls_self", "desc": "HTTPS with a self-signed certificate made by the package (browsers warn once)", "defaultValue": false }
+        ]
+    }]
+}
